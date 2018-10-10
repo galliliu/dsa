@@ -89,7 +89,9 @@ public class Array {
         for (int i = 0; i < this.count; i++) {
             str.append(this.array[i] + ",");
         }
-        str.deleteCharAt(str.length() - 1);
+        if (this.count > 0) {
+            str.deleteCharAt(str.length() - 1);
+        }
         str.append("]");
 
         return str.toString();
