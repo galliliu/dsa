@@ -1,24 +1,5 @@
 package me.galliliu._06_linkedlist;
 
-/**
- * 单链表，访问、插入、删除操作
- *
- * @author galliliu
- * @createTime 2018-10-10
- */
-
-class Node {
-    //节点数据
-    int data;
-    //后继节点
-    Node next;
-
-    public Node(int data) {
-        this.data = data;
-        this.next = null;
-    }
-}
-
 public class SingleLinkedList {
     //链表头结点，哨兵
     private Node head;
@@ -37,7 +18,7 @@ public class SingleLinkedList {
      * @param val 值
      * @return 找到返回true，否则返回false
      */
-    public boolean find(int val) {
+    public boolean contains(int val) {
         if (this.head.next == null) {
             return false;
         }
@@ -48,6 +29,39 @@ public class SingleLinkedList {
         }
 
         return currentNode != null;
+    }
+
+    /**
+     * 根据节点值返回对应的节点值
+     *
+     * @param val 值
+     * @return 找到返回该值，否则返回-1
+     */
+    public int find(int val) {
+        if (this.head.next == null) {
+            return -1;
+        }
+
+        Node currentNode = this.head.next;
+        while (currentNode != null && currentNode.data != val) {
+            currentNode = currentNode.next;
+        }
+
+        return currentNode == null ? -1 : currentNode.data;
+    }
+
+    /**
+     * 根据索引返回对应的节点值
+     *
+     * @param index 索引值
+     * @return 找到返回该值，否则返回-1
+     */
+    public int findByIndex(int index) {
+        if (this.head.next == null) {
+            return -1;
+        }
+
+        return -1;
     }
 
     /**
@@ -71,6 +85,31 @@ public class SingleLinkedList {
             //currentNode = null;//释放内存
             this.n--;
             return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * 删除最后一个数据
+     *
+     * @return 删除成功返回true，失败返回false
+     */
+    public boolean deleteLast() {
+        Node prevNode = this.head;
+        Node currentNode = this.head.next;
+
+        //寻找最后一个节点
+        while (currentNode != null && currentNode.next != null) {
+            currentNode = currentNode.next;
+        }
+        while (prevNode.next != currentNode) {
+            prevNode = prevNode.next;
+        }
+
+        prevNode.next = null;
+        if (this.size() != 0) {
+            this.n--;
         }
 
         return false;
@@ -121,6 +160,37 @@ public class SingleLinkedList {
     }
 
     /**
+     * 在任意地方插入节点
+     *
+     * @param index 索引
+     * @param val   节点值
+     * @return 插入成功返回true，失败返回false
+     */
+    public boolean insert(int index, int val) {
+        if (index <= -1 || index > this.size()) {
+            return false;
+        }
+        Node prevNode = this.head;
+        Node currentNode = this.head.next;
+        Node newNode = new Node(val);
+
+        //寻找要插入的位置
+        for (int j = 0; j <= this.size(); j++) {
+            if (index == j) {
+                break;
+            }
+            prevNode = currentNode;
+            currentNode = currentNode.next;
+        }
+
+        newNode.next = currentNode;
+        prevNode.next = newNode;
+        this.n++;
+
+        return true;
+    }
+
+    /**
      * 返回链表元素个数
      *
      * @return 链表元素个数
@@ -153,17 +223,24 @@ public class SingleLinkedList {
 
         System.out.println(sll.toString());
 
-        sll.insert(1);
-        System.out.println(sll.toString());
-
-        sll.insert(2);
-        System.out.println(sll.toString());
+        //sll.insert(1);
+        //System.out.println(sll.toString());
+        //////
+        //sll.insert(2);
+        //System.out.println(sll.toString());
 
         //sll.delete(2);
         //System.out.println(sll.toString());
 
-        System.out.println(sll.find(2));
-        System.out.println(sll.find(21));
+        //System.out.println(sll.contains(2));
+        //System.out.println(sll.contains(21));
+        //System.out.println(sll.find(2));
+
+        //sll.insert(2, 3);
+        //System.out.println(sll.toString());
+
+        sll.deleteLast();
+        System.out.println(sll.toString());
     }
 }
 
