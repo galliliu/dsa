@@ -66,8 +66,8 @@ public class LRUBySingleLinkedList {
         System.out.println(lruCache);
         lruCache.findCache(3);
         System.out.println(lruCache);
-        //lruCache.findCache(2);
-        //System.out.println(lruCache);
+        lruCache.findCache(2);
+        System.out.println(lruCache);
         lruCache.findCache(4);
         System.out.println(lruCache);
     }
