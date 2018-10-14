@@ -10,7 +10,7 @@ public class ArrayStack {
     public static int DEFAULT_SIZE = 10;
     public static int DEFAULT_CAPACITY = 2;
     private String[] strings;
-    private int n;
+    private int n;//strings[n-1]栈顶
 
     public ArrayStack() {
         this(DEFAULT_SIZE);
