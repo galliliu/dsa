@@ -10,11 +10,13 @@ import java.util.Arrays;
  */
 public class CountingSort {
     /**
-     * 计数实现，特殊的桶排序，没个桶内的数据都相同
+     * 计数实现，特殊的桶排序，每个桶内的数据都相同
      * <p>
      * 例子场景：
-     * 10个订单，每个订单的金额在0-5之间，此时可以把数装到5个桶内
-     * 金额为0的放在0这个桶，1放在1这个桶，以此类推
+     * 10个订单，每个订单的金额在0-5之间，要求对订单按金额排序
+     * <p>
+     * 方案：
+     * 此时可以把数装到5个桶内，金额为0的放在0这个桶，1放在1这个桶，以此类推
      *
      * @param arr 待排数组
      */
@@ -36,12 +38,22 @@ public class CountingSort {
             buckets[arr[i]]++;
         }
 
-        // 从桶内导出数据
+        //buckets数组内顺序求和,buckets[k]存储了小于等于k的个数
+        int sum = 0;
         for (int i = 0; i < buckets.length; i++) {
-            while (buckets[i]-- > 0) {
-                arr[index++] = i;
-            }
+            buckets[i] += sum;
+            sum = buckets[i];
         }
+
+        //从后往前扫描arr
+        int[] r = new int[arr.length];
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int j = buckets[arr[i]] - 1; //根据元素值获取它在桶buckets保存的下标
+            r[j] = arr[i];//保存结果
+            buckets[arr[i]]--;//桶元素个数减少
+        }
+
+        System.arraycopy(r, 0, arr, 0, r.length);
     }
 
     public static void main(String[] args) {
