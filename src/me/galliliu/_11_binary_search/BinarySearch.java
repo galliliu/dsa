@@ -47,7 +47,7 @@ public class BinarySearch {
      * @return 返回找到的目标元素的下标
      */
     public static int binarySearchRecursion(int[] arr, int low, int high, int target) {
-        if (low < 0 || high >= arr.length || low > high) {
+        if (low < 0 || high >= arr.length) {
             throw new ArrayIndexOutOfBoundsException("索引越界了");
         }
 
